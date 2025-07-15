@@ -1,3 +1,4 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Eye, Shield, Leaf, Award, Phone, Mail, Monitor, Zap, Heart, CheckCircle, ArrowRight } from "lucide-react"
@@ -10,6 +11,8 @@ import { CursorAnimation } from "./components/cursor-animation"
 import { PageLoader } from "./components/page-loader"
 import { ScrollProgress } from "./components/scroll-progress"
 import { HeaderButtons, HeroButtons, BenefitsButton, TestimonialsButton, IngredientsButton, PricingButton, ContactButton } from "./components/interactive-sections"
+import { InteractiveButton } from "./components/interactive-button"
+import { OrderForm } from "./components/orderForm";
 
 // Server-side data fetching
 async function getTestimonials() {
@@ -73,34 +76,31 @@ async function getTestimonials() {
 
 async function getIngredients() {
   return [
-    "बिलबेरी",
-    "ल्यूटिन",
-    "ज़ीएक्सैंथिन",
-    "गिंको बिलोबा",
-    "आंवला",
-    "त्रिफला",
-    "ब्राह्मी",
-    "शंखपुष्पी",
-    "ज्योतिष्मती",
-    "पुनर्नवा",
-    "हरिद्रा",
-    "यष्टिमधु",
-    "शतावरी",
-    "अश्वगंधा",
-    "गुडूची",
-    "तुलसी",
-    "नीम",
-    "अर्जुन",
-    "मंजिष्ठा",
-    "सारिवा",
-    "कुमारी",
-    "भृंगराज",
-    "जटामांसी",
-    "वचा",
-    "पिप्पली",
-    "मरिच",
-    "शुंठी",
-    "इला",
+    {
+      name: "त्रिफला",
+      imageUrl: "https://up.yimg.com/ib/th/id/OIP.0desCUakhIfWaKdHkVs3WwHaFj?pid=Api&rs=1&c=1&qlt=95&w=135&h=101",
+      description: "त्रिफला आंखों की स्वास्थ्य को बढ़ाने में मदद करती है और मैक्युला स्वास्थ्य को समर्थन करती है।",
+    },
+    {
+      name: "गिंको बिलोबा",
+      imageUrl: "https://images.unsplash.com/photo-1578305342239-a2151c198587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
+      description: "गिंको बिलोबा आंखों की स्वास्थ्य को बढ़ाने में मदद करती है और मैक्युला स्वास्थ्य को समर्थन करती है।",
+    },
+    {
+      name: "सौंफ के बीज",
+      imageUrl: "https://images.unsplash.com/photo-1578305342239-a2151c198587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
+      description: "सौंफ के बीज आंखों की स्वास्थ्य को बढ़ाने में मदद करती है और मैक्युला स्वास्थ्य को समर्थन करती है।",
+    },
+    {
+      name: "बिलबेरी",
+      imageUrl: "https://images.unsplash.com/photo-1578305342239-a2151c198587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
+      description: "बिलबेरी आंखों की स्वास्थ्य को बढ़ाने में मदद करती है और मैक्युला स्वास्थ्य को समर्थन करती है।",
+    },
+    {
+      name: "कैलेंडुला",
+      imageUrl: "https://images.unsplash.com/photo-1578305342239-a2151c198587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80",
+      description: "कैलेंडुला आंखों की स्वास्थ्य को बढ़ाने में मदद करती है और मैक्युला स्वास्थ्य को समर्थन करती है।",
+    },
   ]
 }
 
@@ -110,56 +110,49 @@ export default async function VisionVedaLanding() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
+      {/* Fixed Top Banner */}
+      <div className="fixed top-0 w-full bg-blue-600 text-white py-2 text-center z-50">
+        <p className="text-sm md:text-base">
+          🌟 डॉक्टर द्वारा तैयार • 100% प्राकृतिक
+        </p>
+      </div>
+
       <CursorAnimation />
       <PageLoader />
       <ScrollProgress />
       <FloatingElements />
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <AnimatedSection animation="slideInLeft">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full flex items-center justify-center">
-                <Eye className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                विजन वेदा
-              </span>
+      {/* Header with adjusted margin-top */}
+      <header className="sticky top-10 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center py-4">
+            <Link href="/" className="flex items-center space-x-2">
+              <Eye className="h-6 w-6 text-blue-600" />
+              <span className="text-xl font-bold">विजन वेदा</span>
+            </Link>
+            <nav className="hidden md:flex space-x-6">
+              <Link href="#benefits" className="text-gray-600 hover:text-blue-600">लाभ</Link>
+              <Link href="#testimonials" className="text-gray-600 hover:text-blue-600">समीक्षाएं</Link>
+              <Link href="#ingredients" className="text-gray-600 hover:text-blue-600">सामग्री</Link>
+              <Link href="#pricing" className="text-gray-600 hover:text-blue-600">मूल्य</Link>
+              <Link href="#faq" className="text-gray-600 hover:text-blue-600">FAQ</Link>
+              <Link href="#contact" className="text-gray-600 hover:text-blue-600">संपर्क</Link>
+            </nav>
+            <div className="md:hidden">
+              <button className="text-gray-600 hover:text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6"><path d="M3 3h18"/><path d="M9 18h12"/><path d="M3 18h18"/><path d="M9 6H3"/><path d="M21 12H3"/></svg>
+              </button>
             </div>
-          </AnimatedSection>
-
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="#benefits" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              लाभ
-            </Link>
-            <Link href="#testimonials" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              समीक्षाएं
-            </Link>
-            <Link href="#ingredients" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              सामग्री
-            </Link>
-            <Link href="#pricing" className="text-sm font-medium hover:text-blue-600 transition-colors">
-              मूल्य
-            </Link>
-          </nav>
-
-          <AnimatedSection animation="slideInRight">
-            <HeaderButtons />
-          </AnimatedSection>
+          </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-50 via-white to-teal-50 py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5"></div>
+      <section className="relative bg-gradient-to-br from-blue-50 via-white to-teal-50 py-20 md:py-32 overflow-hidden mt-10">
         <div className="container mx-auto px-4 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection animation="slideInLeft" className="space-y-8">
               <div className="space-y-6">
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700 hover:bg-blue-200 animate-pulse">
-                  🌟 डॉक्टर द्वारा तैयार • 100% प्राकृतिक
-                </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
                   अपनी दृष्टि को
                   <br />
@@ -167,57 +160,139 @@ export default async function VisionVedaLanding() {
                     प्राकृतिक रूप से पुनर्स्थापित करें
                   </span>
                 </h1>
-                <p className="text-xl text-gray-600 max-w-2xl leading-relaxed">
-                  थकी हुई, बूढ़ी आंखों के लिए डॉक्टर द्वारा तैयार आयुर्वेदिक देखभाल। स्पष्टता में सुधार करें, तनाव कम करें और हमारे वैज्ञानिक रूप से समर्थित प्राकृतिक फॉर्मूला के साथ मैक्युला स्वास्थ्य का समर्थन करें।
-                </p>
+                <ul className="text-xl text-gray-600 max-w-2xl leading-relaxed space-y-2">
+                  <li className="flex items-center">
+                    <span className="text-blue-600 mr-2">✦</span>
+                    आयुर्वेदिक विशेषज्ञों द्वारा विकसित प्राकृतिक नेत्र देखभाल
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-blue-600 mr-2">✦</span>
+                    थकी हुई आँखों को आराम और मैक्युला स्वास्थ्य में सुधार
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-blue-600 mr-2">✦</span>
+                    डिजिटल स्क्रीन से होने वाले तनाव से राहत
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-blue-600 mr-2">✦</span>
+                    वैज्ञानिक रूप से सिद्ध शुद्ध जड़ी बूटियों का मिश्रण
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-blue-600 mr-2">✦</span>
+                    दृष्टि की स्पष्टता और आँखों की रोशनी में वृद्धि
+                  </li>
+                </ul>
               </div>
-
-              <div className="grid grid-cols-3 gap-4 py-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Eye className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <p className="text-sm font-medium">स्पष्ट दृष्टि</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Monitor className="w-8 h-8 text-teal-600" />
-                  </div>
-                  <p className="text-sm font-medium">आंखों का तनाव कम करता है</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Leaf className="w-8 h-8 text-green-600" />
-                  </div>
-                  <p className="text-sm font-medium">मैक्युला स्वास्थ्य का समर्थन</p>
-                </div>
-              </div>
-
-              <HeroButtons />
-
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>मुफ्त शिपिंग</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>30-दिन की गारंटी</span>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <PricingButton>
+                  अभी ऑर्डर करें - सिर्फ ₹1,499
+                  <ArrowRight className="ml-2 h-6 w-6" />
+                </PricingButton>
+                <div className="flex-1">
+                  <BenefitsButton />
                 </div>
               </div>
             </AnimatedSection>
-
-            <AnimatedSection animation="slideInRight" className="relative">
+            <AnimatedSection animation="slideInRight">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-teal-400 rounded-3xl blur-3xl opacity-20 animate-pulse"></div>
+                <div className="absolute inset-0 bg-white/20 rounded-3xl blur-3xl"></div>
                 <Image
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jul%2011%2C%202025%2C%2011_26_44%20PM-OSrc6hmQcWoCyBuwxaF5nt4XE0O5IK.png"
-                  alt="विजन वेदा उत्पाद - कैप्सूल और आई ड्रॉप्स"
+                  alt="Vision Veda Hero"
                   width={600}
                   height={600}
-                  className="rounded-3xl shadow-2xl"
+                  className="relative rounded-2xl"
                 />
               </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Eye Problems Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
+            सामान्य आँखों की समस्याएं
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatedSection animation="zoomIn">
+              <Card className="hover:shadow-lg transition-shadow border-2 border-blue-100">
+                <CardContent className="p-6 text-center">
+                  <Monitor className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">कंप्यूटर विजन सिंड्रोम</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li>• लंबे समय तक स्क्रीन देखने से आँखों में थकान</li>
+                    <li>• आँखों में जलन और सूखापन</li>
+                    <li>• धुंधली दृष्टि और सिरदर्द</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animation="zoomIn">
+              <Card className="hover:shadow-lg transition-shadow border-2 border-blue-100">
+                <CardContent className="p-6 text-center">
+                  <Eye className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">आयु संबंधित समस्याएं</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li>• पढ़ने में कठिनाई</li>
+                    <li>• मैक्युला का स्वास्थ्य</li>
+                    <li>• दृष्टि की स्पष्टता में कमी</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animation="zoomIn">
+              <Card className="hover:shadow-lg transition-shadow border-2 border-blue-100">
+                <CardContent className="p-6 text-center">
+                  <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">डिजिटल आई स्ट्रेन</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li>• आँखों में तनाव और थकान</li>
+                    <li>• फोकस करने में परेशानी</li>
+                    <li>• रात में काम करने में दिक्कत</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animation="zoomIn">
+              <Card className="hover:shadow-lg transition-shadow border-2 border-blue-100">
+                <CardContent className="p-6 text-center">
+                  <Heart className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">सूखी आँखें</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li>• आँखों में खुजली और जलन</li>
+                    <li>• लाली और असहजता</li>
+                    <li>• बार-बार आँखें मलना</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animation="zoomIn">
+              <Card className="hover:shadow-lg transition-shadow border-2 border-blue-100">
+                <CardContent className="p-6 text-center">
+                  <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">रतौंधी</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li>• रात में देखने में परेशानी</li>
+                    <li>• कम रोशनी में अस्पष्ट दृष्टि</li>
+                    <li>• ड्राइविंग में समस्या</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+            <AnimatedSection animation="zoomIn">
+              <Card className="hover:shadow-lg transition-shadow border-2 border-blue-100">
+                <CardContent className="p-6 text-center">
+                  <CheckCircle className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">आँखों की थकान</h3>
+                  <ul className="text-gray-600 space-y-1">
+                    <li>• लगातार काम से थकान</li>
+                    <li>• आँखों में भारीपन</li>
+                    <li>• तेज रोशनी से परेशानी</li>
+                  </ul>
+                </CardContent>
+              </Card>
             </AnimatedSection>
           </div>
         </div>
@@ -360,7 +435,7 @@ export default async function VisionVedaLanding() {
                   className={`h-full text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-lg bg-gradient-to-br from-${benefit.color}-50 to-white`}
                 >
                   <CardContent className="p-0">
-                    <div
+                      <div
                       className={`w-20 h-20 bg-${benefit.color}-100 rounded-full flex items-center justify-center mx-auto mb-4`}
                     >
                       {benefit.icon}
@@ -380,38 +455,37 @@ export default async function VisionVedaLanding() {
       </section>
 
       {/* Ingredients Section */}
-      <section id="ingredients" className="py-20 bg-white">
+      <section id="ingredients" className="py-16 bg-gradient-to-br from-blue-50 to-green-50">
         <div className="container mx-auto px-4">
-          <AnimatedSection animation="fadeInUp">
-            <div className="text-center mb-16">
-              <Badge variant="secondary" className="bg-green-100 text-green-700 mb-4">
-                प्राकृतिक सामग्री
-              </Badge>
-              <h2 className="text-4xl font-bold mb-4">28 POWERFUL AYURVEDIC INGREDIENTS</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                प्रत्येक सामग्री को ध्यान से चुना जाता है और वैज्ञानिक रूप से सिद्धांत है
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-4 md:grid-cols-7 lg:grid-cols-8 gap-6">
+          <div className="text-center mb-12">
+            <Badge variant="secondary" className="bg-green-100 text-green-700 mb-4">
+              आयुर्वेदिक सामग्री
+            </Badge>
+            <h2 className="text-3xl font-bold mb-4">प्राकृतिक सामग्री</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              प्रत्येक सामग्री को ध्यान से चुना जाता है और वैज्ञानिक रूप से सिद्ध है
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
             {ingredients.map((ingredient, index) => (
-              <AnimatedSection key={index} animation="zoomIn" delay={index * 0.05} className="text-center">
-                <div className="group cursor-pointer">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <Leaf className="w-8 h-8 text-green-600" />
-                  </div>
-                  <p className="text-xs font-medium text-gray-700 group-hover:text-green-600 transition-colors">
-                    {ingredient}
-                  </p>
-                </div>
+              <AnimatedSection key={index} animation="fadeIn" delay={index * 0.1}>
+                <Card className="hover:shadow-lg transition-all duration-300 group overflow-hidden">
+                  <CardContent className="p-4 text-center">
+                    <div className="relative w-full aspect-square mb-3 overflow-hidden rounded-lg bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+                      <Leaf className="w-8 h-8 text-green-600" />
+                    </div>
+                    <p className="text-sm font-medium text-gray-800 mb-1">{ingredient.name}</p>
+                    <p className="text-xs text-gray-600 line-clamp-2">{ingredient.description}</p>
+                  </CardContent>
+                </Card>
               </AnimatedSection>
             ))}
           </div>
 
-          <AnimatedSection animation="fadeInUp" className="text-center mt-12">
+          <div className="mt-12 text-center">
             <IngredientsButton />
-          </AnimatedSection>
+          </div>
         </div>
       </section>
 
@@ -432,53 +506,83 @@ export default async function VisionVedaLanding() {
 
           <div className="max-w-2xl mx-auto">
             <AnimatedSection animation="zoomIn">
-              <Card className="bg-white text-gray-900 p-8 shadow-2xl border-0">
+              <Card className="bg-white text-gray-900 p-8 shadow-2xl border-0 relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-gradient-to-l from-blue-600 to-green-600 text-white py-2 px-6 rounded-bl-2xl font-bold">
+                  बेस्ट वैल्यू
+                </div>
                 <CardContent className="p-0 text-center">
-                  <div className="mb-6">
+                  <div className="mb-6 relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-200 to-green-200 rounded-2xl transform group-hover:scale-105 transition-transform duration-300 -rotate-3"></div>
                     <Image
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jul%2011%2C%202025%2C%2011_26_44%20PM-OSrc6hmQcWoCyBuwxaF5nt4XE0O5IK.png"
                       alt="Vision Veda Complete Kit"
                       width={300}
                       height={300}
-                      className="mx-auto rounded-lg"
+                      className="mx-auto rounded-lg relative transform group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
 
-                  <h3 className="text-3xl font-bold mb-4">विजन वेदा कैप्सूल</h3>
-                  <p className="text-gray-600 mb-6">कैप्सूल + आई ड्रॉप्स आंख की देखभाल के लिए</p>
-
-                  <div className="mb-6">
-                    <div className="flex items-center justify-center space-x-4">
-                      <span className="text-4xl font-bold text-red-500 line-through">₹2,999</span>
-                      <span className="text-5xl font-bold text-green-600">₹1,499</span>
+                  <div className="space-y-4">
+                    <h3 className="text-3xl font-bold">विजन वेदा कम्पलीट किट</h3>
+                    <div className="flex items-center justify-center space-x-3">
+                      <Badge className="bg-blue-100 text-blue-700 text-lg">30 कैप्सूल</Badge>
+                      <Badge className="bg-green-100 text-green-700 text-lg">30 दिन की सप्लाई</Badge>
                     </div>
-                    <Badge className="bg-red-500 text-white text-lg px-4 py-2 mt-2">50% OFF - Save ₹1,500</Badge>
+                    <p className="text-gray-600">प्रीमियम आयुर्वेदिक कैप्सूल + आई ड्रॉप्स</p>
                   </div>
 
-                  <div className="space-y-3 mb-8 text-left">
-                    {[
-                      "60 प्रीमियम कैप्सूल (2 महीने की आपूर्ति)",
-                      "30ml प्राकृतिक आई ड्रॉप्स",
-                      "मुफ्त शिपिंग भारत के लिए",
-                      "30-दिन की मनी-बैक गारंटी",
-                      "डॉक्टर सहायता समर्थन",
-                      "100% प्राकृतिक & सुरक्षित फॉर्मूला",
-                    ].map((feature, index) => (
-                      <div key={index} className="flex items-center space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
+                  <div className="my-8">
+                    <div className="flex items-center justify-center space-x-4">
+                      <div className="text-center">
+                        <span className="text-4xl font-bold text-red-500 line-through block">₹2,999</span>
+                        <span className="text-sm text-gray-500">रेगुलर प्राइस</span>
                       </div>
-                    ))}
+                      <div className="text-center">
+                        <span className="text-5xl font-bold text-green-600 block">₹1,499</span>
+                        <span className="text-sm text-gray-500">स्पेशल ऑफर</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 space-y-2">
+                      <Badge className="bg-red-500 text-white text-lg px-6 py-2">50% की बचत - ₹1,500 ऑफ</Badge>
+                      <p className="text-sm text-green-600 font-medium">प्रति दिन सिर्फ ₹50 में बेहतर दृष्टि</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <ul className="text-left space-y-2">
+                      <li className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        30 दिन की सप्लाई
+                      </li>
+                      <li className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        मुफ्त शिपिंग
+                      </li>
+                      <li className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        30 दिन की मनी बैक गारंटी
+                      </li>
+                      <li className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        डॉक्टर की सलाह उपलब्ध
+                      </li>
+                    </ul>
                   </div>
 
                   <div className="mt-8">
-                    <PricingButton>
-                      अभी ऑर्डर करें - सिर्फ ₹1,499
-                      <ArrowRight className="ml-2 h-6 w-6" />
-                    </PricingButton>
+                    <InteractiveButton
+                      size="lg"
+                      className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-lg px-8 py-4 w-full shadow-xl transform hover:scale-105 transition-all duration-300"
+                      onAsyncClick={async () => {
+                        await new Promise((resolve) => setTimeout(resolve, 2000))
+                      }}
+                      loadingText="ऑर्डर प्रोसेसिंग..."
+                      successText="ऑर्डर पुष्टि!"
+                    >
+                      अभी ऑर्डर करें
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </InteractiveButton>
                   </div>
-
-                  <p className="text-xs text-gray-500 mt-4">सुरक्षित भुगतान • मुफ्त शिपिंग • 30-दिन की गारंटी</p>
                 </CardContent>
               </Card>
             </AnimatedSection>
@@ -647,7 +751,7 @@ export default async function VisionVedaLanding() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
+      <section id="faq" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <AnimatedSection animation="fadeInUp">
             <div className="text-center mb-16">
@@ -681,7 +785,7 @@ export default async function VisionVedaLanding() {
               {
                 question: "विजन वेदा क्या अन्य आंख दवाओं से अलग है?",
                 answer:
-                  "विजन वेदा आयुर्वेदिक ज्ञान और आधुनिक विज्ञान का मिश्रण है, जो 28 ध्यानपूर्वक चुनी गई प्राकृतिक सामग्री का उपयोग करता है जो आंख स्वास्थ्य के लिए वैज्ञानिक रूप से सिद्धांत है।",
+                  "विजन वेदा आयुर्वेदिक ज्ञान और आधुनिक विज्ञान का मिश्रण है, जो 28 ध्यानपूर्वक चुनी गई प्राकृतिक सामग्री का उपयोग करता है जो आंख स्वास्थ्य के लिए वैज्ञानिक रूप से सिद्धांत हैं।",
               },
               {
                 question: "क्या आप पैसे वापस करते हैं?",
@@ -702,22 +806,12 @@ export default async function VisionVedaLanding() {
         </div>
       </section>
 
-      {/* Expert Opinions */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-teal-50">
+      {/* Doctor Section */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection animation="fadeInUp">
-            <div className="text-center mb-16">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-700 mb-4">
-                विशेषज्ञ की राय
-              </Badge>
-              <h2 className="text-4xl font-bold mb-4">
-                विजन वेदा के बारे में
-                <br />
-                <span className="text-blue-600">विशेषज्ञ की राय</span>
-              </h2>
-            </div>
-          </AnimatedSection>
-
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">विशेषज्ञों की राय</h2>
+          </div>
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <AnimatedSection animation="slideInLeft">
               <Card className="p-8 hover:shadow-xl transition-shadow border-0 shadow-lg">
@@ -734,30 +828,7 @@ export default async function VisionVedaLanding() {
                       <h4 className="font-bold text-xl mb-2">डॉक्टर राजेश कुमार</h4>
                       <p className="text-blue-600 font-medium mb-4">आयुर्वेदिक आंख विशेषज्ञ • 25+ वर्ष अनुभव</p>
                       <p className="text-gray-700 leading-relaxed">
-                        "विजन वेदा आयुर्वेदिक ज्ञान और आधुनिक विज्ञान के एक संगम का प्रतिनिधित्व करता है। मेरे ग्राहकों की आंख स्वास्थ्य में विशेषज्ञ रूप से बेहतर परिणाम देख रहे हैं।"
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </AnimatedSection>
-
-            <AnimatedSection animation="slideInRight">
-              <Card className="p-8 hover:shadow-xl transition-shadow border-0 shadow-lg">
-                <CardContent className="p-0">
-                  <div className="flex items-start space-x-6">
-                    <Image
-                      src="/placeholder.svg?height=100&width=100"
-                      alt="Dr. Priya Sharma"
-                      width={100}
-                      height={100}
-                      className="rounded-full border-4 border-teal-200"
-                    />
-                    <div>
-                      <h4 className="font-bold text-xl mb-2">डॉक्टर प्रिया शर्मा</h4>
-                      <p className="text-teal-600 font-medium mb-4">ऑप्थलमोलॉजिस्ट • AIIMS दिल्ली</p>
-                      <p className="text-gray-700 leading-relaxed">
-                        "मैं आंख देखभाल के लिए आंख दवाओं के लिए विजन वेदा को अनुशंसित करती हूं। क्लिनिकल परिणाम अपने आप बताते हैं - यह वास्तव में प्रभावी है।"
+                        "विजन वेदा आयुर्वेदिक ज्ञान और आधुनिक विज्ञान का मिश्रण है। मेरे ग्राहकों की आंख स्वास्थ्य में विशेषज्ञ रूप से बेहतर परिणाम देख रहे हैं।"
                       </p>
                     </div>
                   </div>
@@ -768,14 +839,17 @@ export default async function VisionVedaLanding() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-teal-600 text-white">
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-gradient-to-r from-blue-600 to-teal-600 text-white">
         <div className="container mx-auto px-4">
           <AnimatedSection animation="zoomIn">
             <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">अपनी दृष्टि को प्राकृतिक रूप से पुनर्स्थापित करने के लिए तैयार हैं?</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                क्या आपको बेहतर आँखों की रोशनी चाहिए?
+              </h2>
               <p className="text-xl mb-8 opacity-90">
-                विजन वेदा के साथ हजारों संतुष्ट ग्राहकों को दृष्टि को बदलने का अनुभव है। आपकी दृष्टि को बेहतर बनाने के लिए अधिक नहीं छोड़ें!
+                हजारों लोगों ने विजन वेदा से अपनी आँखों की रोशनी सुधारी है। 
+                आज ही अपनी आँखों की देखभाल शुरू करें!
               </p>
 
               <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
@@ -797,7 +871,7 @@ export default async function VisionVedaLanding() {
 
               <div className="mt-6">
                 <ContactButton>
-                  संदेश भेजें
+                  अभी ऑर्डर करें
                   <ArrowRight className="ml-2 h-6 w-6" />
                 </ContactButton>
               </div>
@@ -808,6 +882,9 @@ export default async function VisionVedaLanding() {
             </div>
           </AnimatedSection>
         </div>
+
+        <OrderForm />
+
       </section>
 
       {/* Footer */}
@@ -874,6 +951,7 @@ export default async function VisionVedaLanding() {
               </div>
             </AnimatedSection>
           </div>
+
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 विजन वेदा. सर्वाधिकार सुरक्षित.</p>

@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ReactNode } from "react"
 
+export { InteractiveButton } from './interactive-button'
+
 export function HeaderButtons() {
   return (
     <InteractiveButton
