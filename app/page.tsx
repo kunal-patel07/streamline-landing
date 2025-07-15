@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Eye, Shield, Leaf, Award, Phone, Mail, Monitor, Zap, Heart, CheckCircle, ArrowRight } from "lucide-react"
